@@ -2,10 +2,10 @@ import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 
 import { PlacesContainerComponent } from '../places-container/places-container.component';
 import { PlacesComponent } from '../places.component';
-import { HttpClient } from '@angular/common/http';
 import { Place } from '../place.model';
 
 import { map, catchError, throwError } from 'rxjs';
+import { PlacesService } from '../places.service';
 
 @Component({
   selector: 'app-user-places',
@@ -15,40 +15,24 @@ import { map, catchError, throwError } from 'rxjs';
   imports: [PlacesContainerComponent, PlacesComponent],
 })
 export class UserPlacesComponent implements OnInit {
-  places = signal<Place[] | undefined>(undefined);
-  private httpClient = inject(HttpClient);
+  private placesService = inject(PlacesService);
   private destroyRef = inject(DestroyRef);
   isFetching = signal(false);
   error = signal('');
+  places = this.placesService.loadedUserPlaces;
 
   ngOnInit() {
     this.isFetching.set(true);
-    const subscription = this.httpClient
-      .get<{ places: Place[] }>('http://localhost:3000/user-places')
-      .pipe(
-        map((resData) => resData.places),
-        catchError((error) => {
-          console.log(error);
-          return throwError(
-            () =>
-              new Error(
-                'something went wrong  fetching your favourite available places. Plz try again later.'
-              )
-          );
-        })
-      )
-      .subscribe({
-        next: (places) => {
-          this.places.set(places);
-        },
-        error: (error: Error) => {
-          console.log(error);
-          this.error.set(error.message);
-        },
-        complete: () => {
-          this.isFetching.set(false);
-        },
-      });
+    const subscription = this.placesService.loadUserPlaces().subscribe({
+      
+      error: (error: Error) => {
+        console.log(error);
+        this.error.set(error.message);
+      },
+      complete: () => {
+        this.isFetching.set(false);
+      },
+    });
     this.destroyRef.onDestroy(() => subscription.unsubscribe());
   }
 }
