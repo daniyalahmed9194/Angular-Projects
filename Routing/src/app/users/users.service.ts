@@ -8,5 +8,6 @@ import { DUMMY_USERS } from '../../dummy-users';
 export class UsersService {
   get users() {
     return DUMMY_USERS;
+    
   }
 }
