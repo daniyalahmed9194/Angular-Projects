@@ -1,4 +1,9 @@
 <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+<!-- 
+  here ngForm is not just normal value rather it is an identifier that will use in some sort of binding.
+  
+  we can access the #form by 2 methods. 1. by viewchild function and 2nd is by sending as a parameter through ngSubmit-->
+
   <h2>Login</h2>
 
   <div class="control-row">
@@ -15,13 +20,19 @@
       />
     </div>
 
+    <!-- here #email is there to get the values of email in template before it gets late -->
+
+    <!-- ngModel always requires the name r\the email here is just valid email validator-->
+
+ <!-- so ngmodel register any kind of html input  (makes angular aware of this element)-->
+
     <div class="control no-margin">
       <label for="password">Password</label>
       <input
         id="password"
         type="password"
         name="password"
-        ngModel
+        ngModel falfjlafjalsf
         required
         password
         minlength="6"
