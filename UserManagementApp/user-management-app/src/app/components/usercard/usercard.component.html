@@ -1,0 +1,79 @@
+<div class="user-card">
+  <div class="user-actions">
+    <div class="edit" title="Edit" (click)="onEdit()">
+      <img src="edit.svg" alt="Edit" />
+    </div>
+    <div class="delete" title="delete" (click)="onDelete()">
+      <img src="delete.svg" alt="Delete" />
+    </div>
+  </div>
+  <h2 class="user-name">{{ user().name }}</h2>
+  <div class="user-details">
+    <p><strong>Username: </strong>{{ user().username }}</p>
+    <p><strong>Email: </strong>{{ user().email }}</p>
+    <p><strong>Phone: </strong>{{ user().phone }}</p>
+    <p><strong>Website: </strong>{{ user().website }}</p>
+  </div>
+</div>
+
+<div class="modal">
+  @if (isEditModalOpen()) {
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Edit User</h2>
+      <span class="close" (click)="closeModal()">&times;</span>
+    </div>
+    <div class="modal-body">
+      <label for="edit-name">Name</label>
+      <input
+        type="text"
+        id="edit-name"
+        name="edit-name"
+        [(ngModel)]="editUser.name"
+        placeholder="Enter Name"
+        required
+      />
+      <label for="edit-username">Username</label>
+      <input
+        type="text"
+        id="edit-username"
+        name="edit-username"
+        [(ngModel)]="editUser.username"
+        placeholder="Enter Username"
+        required
+      />
+      <label for="edit-emal">Email</label>
+      <input
+        type="text"
+        id="edit-email"
+        name="edit-email"
+        [(ngModel)]="editUser.email"
+        placeholder="Enter email"
+        required
+      />
+      <label for="edit-phone">Phone</label>
+      <input
+        type="text"
+        id="edit-phone"
+        name="edit-phone"
+        [(ngModel)]="editUser.phone"
+        placeholder="Enter phone no"
+        required
+      />
+      <label for="edit-website">Website</label>
+      <input
+        type="text"
+        id="edit-website"
+        name="edit-website"
+        [(ngModel)]="editUser.website"
+        placeholder="Enter website address"
+        required
+      />
+    </div>
+    <div class="modal-footer">
+        <button (click)="saveChanges()">Save</button>
+        <button (click)="closeModal()">Cancel</button>
+    </div>
+  </div>
+  }
+</div>
