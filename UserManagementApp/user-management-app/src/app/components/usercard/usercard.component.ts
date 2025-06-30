@@ -1,34 +1,40 @@
-import { Component, inject, input, signal , Signal} from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+
+
 @Component({
+  standalone: true,
   selector: 'app-usercard',
-  imports: [FormsModule],
-  templateUrl: './usercard.component.html',
-  styleUrl: './usercard.component.css'
+  imports: [FormsModule, CommonModule],
+  styleUrls: ['./usercard.component.css'],
+  templateUrl: './usercard.component.html'  
 })
 export class UsercardComponent {
-  user = input.required<User>();
-  isEditModalOpen = signal(false);
-  editUser: User = new User({ ...this.user()});
+  @Input() user!: User;
+  isEditModalOpen: boolean = false;
+  editUser: User = new User({}); // initialize empty
 
   private userService = inject(UserService);
-  
-  onEdit(){
-    this.editUser = new User({ ...this.user()});
-    this.isEditModalOpen.set(false)
-  }
-  
-  closeModal(){
-    this.isEditModalOpen.set(false)
+
+
+  onEdit() {
+    this.editUser = new User({ ...this.user });
+    this.isEditModalOpen = true;
   }
 
-  saveChanges(){
-    this.userService.editUserId(this.user().id, this.editUser)
-    this.isEditModalOpen.set(false)
+  closeModal() {
+    this.isEditModalOpen =false;
   }
-  onDelete(){
-    this.userService.deleteUser(this.user().id)
+
+  saveChanges() {
+    this.userService.editUserId(this.user.id, this.editUser);
+    this.isEditModalOpen =false;
+  }
+
+  onDelete() {
+    this.userService.deleteUser(this.user.id);
   }
 }

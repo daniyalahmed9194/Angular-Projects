@@ -1,1 +1,6 @@
-<p>users works!</p>
+<div id="user-container">
+
+    @for (user of userService.getUser(); track user.id) {
+  <app-usercard [user]="user"></app-usercard>
+}
+</div>

@@ -1,1 +1,18 @@
-<p>userform works!</p>
+<div class="user-form-container">
+  <h2>Add New User</h2>
+  <form
+    (ngSubmit)="onSubmit(userForm)"
+    #userForm="ngForm"
+    novalidate
+    autocomplete="off"
+  >
+    <input type="text" id="name" name="name" placeholder="Enter your Name" [(ngModel)]="newUser.name" />
+    <input type="text" id="username" name="username" placeholder="enter your username" [(ngModel)]="newUser.username" />
+    <input type="text" id="email" name="email" placeholder="enter your email" [(ngModel)]="newUser.email" />
+    <input type="text" id="phone" name="phone" placeholder="Enter your Phone" [(ngModel)]="newUser.phone" />
+    <input type="text" id="web" name="web" placeholder="Enter your website
+    " [(ngModel)]="newUser.website" />
+
+    <button type="submit" [disabled]="!userForm.form.valid">Add User</button>
+  </form>
+</div>

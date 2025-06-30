@@ -3,77 +3,83 @@
     <div class="edit" title="Edit" (click)="onEdit()">
       <img src="edit.svg" alt="Edit" />
     </div>
-    <div class="delete" title="delete" (click)="onDelete()">
+    <div class="delete" title="Delete" (click)="onDelete()">
       <img src="delete.svg" alt="Delete" />
     </div>
   </div>
-  <h2 class="user-name">{{ user().name }}</h2>
+
+  <h2 class="user-name">{{ user.name }}</h2>
   <div class="user-details">
-    <p><strong>Username: </strong>{{ user().username }}</p>
-    <p><strong>Email: </strong>{{ user().email }}</p>
-    <p><strong>Phone: </strong>{{ user().phone }}</p>
-    <p><strong>Website: </strong>{{ user().website }}</p>
+    <p><strong>Username: </strong>{{ user.username }}</p>
+    <p><strong>Email: </strong>{{ user.email }}</p>
+    <p><strong>Phone: </strong>{{ user.phone }}</p>
+    <p><strong>Website: </strong>{{ user.website }}</p>
   </div>
 </div>
 
-<div class="modal">
-  @if (isEditModalOpen()) {
+<!-- Modal -->
+<div class="modal" *ngIf="isEditModalOpen">
   <div class="modal-content">
     <div class="modal-header">
       <h2>Edit User</h2>
       <span class="close" (click)="closeModal()">&times;</span>
     </div>
+
     <div class="modal-body">
-      <label for="edit-name">Name</label>
+      <label [for]="' name-' + user.id">Name</label>
       <input
         type="text"
-        id="edit-name"
-        name="edit-name"
+        [id]="' name-' + user.id"
+        name=" name"
         [(ngModel)]="editUser.name"
         placeholder="Enter Name"
         required
       />
-      <label for="edit-username">Username</label>
+
+      <label [for]="' username-' + user.id">Username</label>
       <input
         type="text"
-        id="edit-username"
-        name="edit-username"
+        [id]="' username-' + user.id"
+        name=" username"
         [(ngModel)]="editUser.username"
         placeholder="Enter Username"
         required
       />
-      <label for="edit-emal">Email</label>
+
+      <label [for]="' email-' + user.id">Email</label>
       <input
         type="text"
-        id="edit-email"
-        name="edit-email"
+        [id]="' email-' + user.id"
+        name=" email"
         [(ngModel)]="editUser.email"
-        placeholder="Enter email"
+        placeholder="Enter Email"
         required
       />
-      <label for="edit-phone">Phone</label>
+
+      <label [for]="' phone-' + user.id">Phone</label>
       <input
         type="text"
-        id="edit-phone"
-        name="edit-phone"
+        [id]="' phone-' + user.id"
+        name=" phone"
         [(ngModel)]="editUser.phone"
-        placeholder="Enter phone no"
+        placeholder="Enter Phone"
         required
       />
-      <label for="edit-website">Website</label>
+
+      <label [for]="' website-' + user.id">Website</label>
       <input
         type="text"
-        id="edit-website"
-        name="edit-website"
+        [id]="' website-' + user.id"
+        name=" website"
         [(ngModel)]="editUser.website"
-        placeholder="Enter website address"
+        placeholder="Enter Website"
         required
       />
     </div>
+
     <div class="modal-footer">
-        <button (click)="saveChanges()">Save</button>
-        <button (click)="closeModal()">Cancel</button>
+      <button (click)="saveChanges()">Save</button>
+      <button (click)="closeModal()">Cancel</button>
     </div>
   </div>
-  }
 </div>
